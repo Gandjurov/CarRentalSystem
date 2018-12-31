@@ -1,15 +1,14 @@
-﻿using System;
+﻿using CarRentalSystem.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CarRentalSystem.Data
+namespace CarRentalSystem.Models.Cars
 {
-    public class Car
+    public class CreateCarModel
     {
-        public int Id { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Make { get; set; }
@@ -24,19 +23,19 @@ namespace CarRentalSystem.Data
 
         public double Engine { get; set; }
 
+        [Display(Name = "Engine type")]
+        [ScaffoldColumn(false)]
         public EngineType EngineType { get; set; }
 
         public int? Power { get; set; }
 
         //In BGN
+        [Display(Name = "Price in BGN per day")]
         public decimal PricePerDay { get; set; }
 
         [Required]
+        [Display(Name = "Image URL")]
         public string ImageUrl { get; set; }
 
-        [Required]
-        public string OwnerId { get; set; }
-
-        public virtual User Owner { get; set; }
     }
 }
