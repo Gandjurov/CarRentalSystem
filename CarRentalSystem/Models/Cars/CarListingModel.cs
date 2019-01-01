@@ -18,5 +18,7 @@ namespace CarRentalSystem.Models.Cars
         public decimal PricePerDay { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public bool IsRented { get; set; }
     }
 }

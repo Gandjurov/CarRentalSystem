@@ -12,6 +12,8 @@
 
         public virtual IDbSet<Car> Cars { get; set; }
 
+        public virtual IDbSet<Renting> Rentings { get; set; }
+
         public static CarsDbContext Create()
         {
             return new CarsDbContext();

@@ -15,6 +15,7 @@ namespace CarRentalSystem.Controllers
             var db = new CarsDbContext();
 
             var cars = db.Cars
+                .Where(c => !c.IsRented)
                 .OrderByDescending(c => c.Id)
                 .Take(3)
                 .Select(c => new CarListingModel

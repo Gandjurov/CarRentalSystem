@@ -33,7 +33,8 @@
                             Make = c.Make,
                             Model = c.Model,
                             Year = c.Year,
-                            PricePerDay = c.PricePerDay
+                            PricePerDay = c.PricePerDay,
+                            IsRented = c.IsRented
                         })
                         .ToList();
 
@@ -100,6 +101,7 @@
                     Power = c.Power,
                     PricePerDay = c.PricePerDay,
                     Year = c.Year,
+                    IsRented = c.IsRented,
                     ContactInformation = c.Owner.Email
                 })
                 .FirstOrDefault();
@@ -108,7 +110,7 @@
             {
                 return HttpNotFound();
             }
-
+            
             return View(car);
         }
     }

@@ -22,6 +22,8 @@
         
         public string ImageUrl { get; set; }
 
+        public bool IsRented { get; set; }
+
         public string ContactInformation { get; set; }
     }
 }

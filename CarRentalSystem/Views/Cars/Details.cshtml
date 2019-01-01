@@ -1,8 +1,13 @@
 ﻿@model CarRentalSystem.Models.Cars.CarDetailsModel
 
+@if (Model.IsRented)
+{
+    <h2 class="text-center" text-warning>This car is already rented...</h2>
+}
+
 <div class="row mt-60">
     <div class="col-md-4">
-        <img src="@Model.ImageUrl" class="img-responsive"/>
+        <img src="@Model.ImageUrl" class="img-responsive" />
     </div>
     <div class="col-md-4">
         <h2 class="car-details">@Model.Make  @Model.Model, @(Model.Color != null ? @Model.Color : string.Empty)</h2>
@@ -23,6 +28,32 @@
             {
                 <span>@Model.Power hp.</span>
             }
+        </p>
+        <p>
+            @{
+                var options = new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "1", Value = "1", Selected = true },
+                    new SelectListItem { Text = "2", Value = "2", Selected = false },
+                    new SelectListItem { Text = "3", Value = "3", Selected = false },
+                    new SelectListItem { Text = "4", Value = "4", Selected = false },
+                    new SelectListItem { Text = "5", Value = "5", Selected = false },
+                    new SelectListItem { Text = "6", Value = "6", Selected = false },
+                    new SelectListItem { Text = "7", Value = "7", Selected = false },
+                    new SelectListItem { Text = "8", Value = "8", Selected = false },
+                    new SelectListItem { Text = "9", Value = "9", Selected = false },
+                    new SelectListItem { Text = "10", Value = "10", Selected = false }
+                    };
+            }
+
+            @using (Html.BeginForm("Rent", "Cars", FormMethod.Get))
+            {
+                <span>Rent this car for @Html.DropDownList("days", options) days!</span>
+                <br />
+                <br />
+                <input type="submit" class="btn btn-primary" value="Rent!" />
+            }
+
         </p>
     </div>
 </div>

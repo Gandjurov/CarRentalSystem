@@ -11,9 +11,13 @@
         public User()
         {
             this.Cars = new HashSet<Car>();
+            this.Rentings = new HashSet<Renting>();
+
         }
 
         public virtual ICollection<Car> Cars { get; set; }
+
+        public virtual ICollection<Renting> Rentings { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

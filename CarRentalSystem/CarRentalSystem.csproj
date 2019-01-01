@@ -179,6 +179,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Data\Car.cs" />
     <Compile Include="Data\EngineType.cs" />
+    <Compile Include="Data\Renting.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
