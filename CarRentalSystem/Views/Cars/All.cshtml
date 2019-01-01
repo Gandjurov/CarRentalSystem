@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<CarRentalSystem.Models.Cars.CarListingModel>
 
+<h2 class="text-center mt-60">Our Cars - Page @ViewBag.CurrentPage</h2>
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">No more cars!</h2>
+}
 
 @foreach (var car in Model)
 {
@@ -9,9 +15,14 @@
         </div>
         <div class="col-md-6">
             <h2>@car.Make @car.Model (@car.Year)</h2>
-            <h3>@car.PricePerDay BGN/Day<h3>
-            <a href="/Cars/Details/@car.Id" class="btn btn-default">See more</a>
-        </div>
+            <h3>
+                @car.PricePerDay BGN/Day<h3>
+                <a href="/Cars/Details/@car.Id" class="btn btn-primary">See more</a>
     </div>
+</div>
 }
+
+<p class="text-center mt-60">
+    <a href="/Cars/All?page=@(ViewBag.CurrentPage + 1)" class="btn btn-primary @(!Model.Any() || Model.Count() < 5  ? "disabled" : string.Empty)">Next >></a>
+</p>
 

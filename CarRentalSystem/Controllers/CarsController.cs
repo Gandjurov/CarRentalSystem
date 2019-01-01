@@ -29,6 +29,8 @@
                         })
                         .ToList();
 
+            ViewBag.CurrentPage = page;
+
             return View(cars);
         }
 
