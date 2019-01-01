@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CarRentalSystem.Data;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +15,8 @@ namespace CarRentalSystem
     {
         protected void Application_Start()
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CarsDbContext, Configuration>());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

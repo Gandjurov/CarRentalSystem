@@ -1,4 +1,5 @@
 ﻿using CarRentalSystem.Data;
+using CarRentalSystem.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -35,6 +36,8 @@ namespace CarRentalSystem.Models.Cars
 
         [Required]
         [Display(Name = "Image URL")]
+        [Url]
+        [ImageUrl]
         public string ImageUrl { get; set; }
 
     }

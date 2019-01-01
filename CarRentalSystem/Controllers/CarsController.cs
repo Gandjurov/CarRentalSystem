@@ -16,23 +16,23 @@
 
         [Authorize]
         [HttpPost]
-        public ActionResult Create(CreateCarModel model)
+        public ActionResult Create(CreateCarModel carModel)
         {
-            if (this.ModelState.IsValid)
+            if (carModel != null && this.ModelState.IsValid)
             {
                 var ownerId = this.User.Identity.GetUserId();
 
                 var car = new Car
                 {
-                    Make = model.Make,
-                    Model = model.Model,
-                    Color = model.Color,
-                    Engine = model.Engine,
-                    EngineType = model.EngineType,
-                    ImageUrl = model.ImageUrl,
-                    Power = model.Power,
-                    PricePerDay = model.PricePerDay,
-                    Year = model.Year,
+                    Make = carModel.Make,
+                    Model = carModel.Model,
+                    Color = carModel.Color,
+                    Engine = carModel.Engine,
+                    EngineType = carModel.EngineType,
+                    ImageUrl = carModel.ImageUrl,
+                    Power = carModel.Power,
+                    PricePerDay = carModel.PricePerDay,
+                    Year = carModel.Year,
                     OwnerId = ownerId
                 };
 
@@ -45,7 +45,7 @@
                 return RedirectToAction("Details", new { id = car.Id });
             }
 
-            return View(model);
+            return View(carModel);
         }
 
     }
