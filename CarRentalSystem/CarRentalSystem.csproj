@@ -192,6 +192,7 @@
     <Compile Include="Data\CarDbContext.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Models\Cars\CreateCarModel.cs" />
+    <Compile Include="Models\Cars\HomeIndexCarModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

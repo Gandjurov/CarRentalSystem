@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CarRentalSystem.Data;
+using CarRentalSystem.Models.Cars;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +12,22 @@ namespace CarRentalSystem.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var db = new CarsDbContext();
+
+            var cars = db.Cars
+                .OrderByDescending(c => c.Id)
+                .Take(3)
+                .Select(c => new HomeIndexCarModel
+                {
+                    Id = c.Id,
+                    ImageUrl = c.ImageUrl,
+                    Make = c.Make,
+                    Model = c.Model,
+                    Year = c.Year
+                })
+                .ToList();
+
+            return View(cars);
         }
     }
 }
