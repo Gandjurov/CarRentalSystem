@@ -4,7 +4,7 @@ namespace CarRentalSystem.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    public sealed class Configuration : DbMigrationsConfiguration<CarRentalSystem.Data.CarsDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<CarsDbContext>
     {
         public Configuration()
         {
