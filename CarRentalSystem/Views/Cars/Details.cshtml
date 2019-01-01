@@ -1,0 +1,25 @@
+﻿@model CarRentalSystem.Models.Cars.CarDetailsModel
+
+<div class="row mt-60">
+    <div class="col-md-4">
+        <img src="@Model.ImageUrl" class="img-responsive"/>
+    </div>
+    <div class="col-md-4">
+        <h2 class="car-details">@Model.Make  @Model.Model, @(Model.Color != null ? @Model.Color : string.Empty)</h2>
+        <h3>@Model.Year - @Model.PricePerDay (BGN/Day)</h3>
+        <p class="lead">
+            <a href="mailto:@Model.ContactInformation">@Model.ContactInformation</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <p class="lead">
+            @Model.Engine.ToString("F1")l (@Model.EngineType)
+        </p>
+        <p class="lead">
+            @if (Model.Power != null)
+            {
+                <span>@Model.Power hp.</span>
+            }
+        </p>
+    </div>
+</div>

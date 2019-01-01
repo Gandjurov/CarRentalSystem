@@ -19,8 +19,12 @@
     {
         <div class="col-md-4">
             <h2>@car.Make @car.Model (@car.Year)</h2>
-            <img src="@car.ImageUrl" class="img-responsive"/>
-            <p><a class="btn btn-default" href="/Cars/Details/@car.Id">See More</a></p>
+            <p>
+                <a class="btn btn-default" href="/Cars/Details/@car.Id">
+                    <img src="@car.ImageUrl" class="img-responsive" />
+                    See More
+                </a>
+            </p>
         </div>
     }
 

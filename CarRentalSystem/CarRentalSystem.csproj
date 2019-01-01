@@ -191,6 +191,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Data\CarDbContext.cs" />
     <Compile Include="Data\User.cs" />
+    <Compile Include="Models\Cars\CarDetailsModel.cs" />
     <Compile Include="Models\Cars\CreateCarModel.cs" />
     <Compile Include="Models\Cars\HomeIndexCarModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -252,6 +253,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Cars\Create.cshtml" />
+    <Content Include="Views\Cars\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
