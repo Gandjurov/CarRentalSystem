@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CarRentalSystem.Models.Cars
 {
-    public class HomeIndexCarModel
+    public class CarListingModel
     {
         public int Id { get; set; }
 
@@ -14,6 +14,8 @@ namespace CarRentalSystem.Models.Cars
         public string Model { get; set; }
 
         public int Year { get; set; }
+
+        public decimal PricePerDay { get; set; }
 
         public string ImageUrl { get; set; }
     }

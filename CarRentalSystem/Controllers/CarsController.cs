@@ -8,6 +8,30 @@
 
     public class CarsController : Controller
     {
+        public ActionResult All(int page = 1)
+        {
+            var db = new CarsDbContext();
+
+            var pageSize = 5;
+
+            var cars = db.Cars
+                        .OrderByDescending(c => c.Id)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .Select(c => new CarListingModel
+                        {
+                            Id = c.Id,
+                            ImageUrl = c.ImageUrl,
+                            Make = c.Make,
+                            Model = c.Model,
+                            Year = c.Year,
+                            PricePerDay = c.PricePerDay
+                        })
+                        .ToList();
+
+            return View(cars);
+        }
+
         [Authorize]
         [HttpGet]
         public ActionResult Create()

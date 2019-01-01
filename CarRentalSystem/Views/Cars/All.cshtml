@@ -1,0 +1,17 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Cars.CarListingModel>
+
+
+@foreach (var car in Model)
+{
+    <div class="row mt-60">
+        <div class="col-md-6">
+            <img src="@car.ImageUrl" class="img-responsive" />
+        </div>
+        <div class="col-md-6">
+            <h2>@car.Make @car.Model (@car.Year)</h2>
+            <h3>@car.PricePerDay BGN/Day<h3>
+            <a href="/Cars/Details/@car.Id" class="btn btn-default">See more</a>
+        </div>
+    </div>
+}
+

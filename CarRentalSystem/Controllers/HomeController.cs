@@ -17,7 +17,7 @@ namespace CarRentalSystem.Controllers
             var cars = db.Cars
                 .OrderByDescending(c => c.Id)
                 .Take(3)
-                .Select(c => new HomeIndexCarModel
+                .Select(c => new CarListingModel
                 {
                     Id = c.Id,
                     ImageUrl = c.ImageUrl,
