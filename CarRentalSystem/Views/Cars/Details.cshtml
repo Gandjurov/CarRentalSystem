@@ -9,6 +9,9 @@
         <h3>@Model.Year - @Model.PricePerDay (BGN/Day)</h3>
         <p class="lead">
             <a href="mailto:@Model.ContactInformation">@Model.ContactInformation</a>
+            <br />
+            <br />
+            <a class="btn btn-default" href="/Cars/All?user=@Model.ContactInformation">See All Cars By This User</a>
         </p>
     </div>
     <div class="col-md-4">

@@ -8,13 +8,21 @@
 
     public class CarsController : Controller
     {
-        public ActionResult All(int page = 1)
+        public ActionResult All(int page = 1, string user = null)
         {
             var db = new CarsDbContext();
 
             var pageSize = 5;
 
-            var cars = db.Cars
+            var carsQuery = db.Cars.AsQueryable();
+
+            if (user != null)
+            {
+                carsQuery = carsQuery
+                    .Where(c => c.Owner.Email == user);
+            }
+
+            var cars = carsQuery
                         .OrderByDescending(c => c.Id)
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize)

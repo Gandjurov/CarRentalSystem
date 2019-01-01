@@ -22,8 +22,14 @@
 </div>
 }
 
-    <p class="text-center mt-60">
-        <a href="/Cars/All?page=@(ViewBag.CurrentPage - 1)" class="btn btn-primary @(ViewBag.CurrentPage == 1  ? "disabled" : string.Empty)">Previous <<</a>
-        <a href="/Cars/All?page=@(ViewBag.CurrentPage + 1)" class="btn btn-primary @(!Model.Any() || Model.Count() < 5  ? "disabled" : string.Empty)">Next >></a>
-    </p>
+@{ 
+    var currentUserQuery = Request.QueryString["user"];
+}
+
+<p class="text-center mt-60">
+    <a href="/Cars/All?page=@(ViewBag.CurrentPage - 1)@(currentUserQuery != null ? "&user=" + currentUserQuery : string.Empty)" 
+                    class="btn btn-primary @(ViewBag.CurrentPage == 1  ? "disabled" : string.Empty)">Previous <<</a>
+    <a href="/Cars/All?page=@(ViewBag.CurrentPage + 1)@(currentUserQuery != null ? "&user=" + currentUserQuery : string.Empty)" 
+                    class="btn btn-primary @(!Model.Any() || Model.Count() < 5  ? "disabled" : string.Empty)">Next >></a>
+</p>
 
