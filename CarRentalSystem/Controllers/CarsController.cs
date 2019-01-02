@@ -2,8 +2,10 @@
 {
     using CarRentalSystem.Data;
     using CarRentalSystem.Models.Cars;
+    using CarRentalSystem.Models.Renting;
     using Microsoft.AspNet.Identity;
     using System.Linq;
+    using System.Net;
     using System.Web.Mvc;
 
     public class CarsController : Controller
@@ -92,6 +94,7 @@
                 .Where(c => c.Id == id)
                 .Select(c => new CarDetailsModel
                 {
+                    Id = c.Id,
                     Color = c.Color,
                     Engine = c.Engine,
                     EngineType = c.EngineType,
@@ -112,6 +115,42 @@
             }
             
             return View(car);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Rent(RentCarModel rentCarModel)
+        {
+            if (rentCarModel.Days < 1 || rentCarModel.Days > 10)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var db = new CarsDbContext();
+
+            var car = db.Cars
+                        .Where(c => c.Id == rentCarModel.CarId)
+                        .Select(c => new
+                        {
+                            c.IsRented,
+                            c.PricePerDay,
+                            c.ImageUrl,
+                            FullName = c.Make + " " + c.Model + " (" + c.Year + ")",
+                        })
+                        .FirstOrDefault();
+
+            if (car == null || car.IsRented)
+            {
+                return HttpNotFound();
+            }
+
+            rentCarModel.CarName = car.FullName;
+            rentCarModel.CarImageUrl = car.ImageUrl;
+            rentCarModel.PricePerDay = car.PricePerDay;
+            rentCarModel.TotalPrice = car.PricePerDay * rentCarModel.Days;
+
+
+            return View(rentCarModel);
         }
     }
 }

@@ -32,26 +32,30 @@
         <p>
             @{
                 var options = new List<SelectListItem>
+                        {
+                        new SelectListItem { Text = "1", Value = "1", Selected = true },
+                        };
+
+                for (int i = 2; i <= 10; i++)
+                {
+                    options.Add(new SelectListItem
                     {
-                    new SelectListItem { Text = "1", Value = "1", Selected = true },
-                    new SelectListItem { Text = "2", Value = "2", Selected = false },
-                    new SelectListItem { Text = "3", Value = "3", Selected = false },
-                    new SelectListItem { Text = "4", Value = "4", Selected = false },
-                    new SelectListItem { Text = "5", Value = "5", Selected = false },
-                    new SelectListItem { Text = "6", Value = "6", Selected = false },
-                    new SelectListItem { Text = "7", Value = "7", Selected = false },
-                    new SelectListItem { Text = "8", Value = "8", Selected = false },
-                    new SelectListItem { Text = "9", Value = "9", Selected = false },
-                    new SelectListItem { Text = "10", Value = "10", Selected = false }
-                    };
+                        Text = i.ToString(),
+                        Value = i.ToString()
+                    });
+                }
             }
 
-            @using (Html.BeginForm("Rent", "Cars", FormMethod.Get))
+            @if (Model.ContactInformation != User.Identity.Name)
             {
-                <span>Rent this car for @Html.DropDownList("days", options) days!</span>
-                <br />
-                <br />
-                <input type="submit" class="btn btn-primary" value="Rent!" />
+                using (Html.BeginForm("Rent", "Cars", FormMethod.Get))
+                {
+                    @Html.Hidden("CarId", Model.Id)
+                    <span>Rent this car for @Html.DropDownList("Days", options) days!</span>
+                    <br />
+                    <br />
+                    <input type="submit" class="btn btn-primary @(Model.IsRented ? "disabled" : string.Empty)" value="Rent!" />
+                }
             }
 
         </p>
