@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Renting.UserRentingModel>
+
+<h2 class="text-center">My Rentings</h2>
+
+<table class="table table-bordered table-responsive table-striped table-hover">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+            Days
+        </th>
+        <th>
+            Car
+        </th>
+        <th>
+            Price
+        </th>
+    </tr>
+
+        @foreach (var renting in Model)
+        {
+        <tr>
+            <td>
+                @renting.RentedOn.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @renting.Days
+            </td>
+            <td>
+                @renting.CarName
+                <img class="pull-right" src="@renting.CarImageUrl" style="width: 100px">
+            </td>
+            <td>
+                @renting.TotalPrice
+            </td>
+        </tr>
+    }
+
+    </table>

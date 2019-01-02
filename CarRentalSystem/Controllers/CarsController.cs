@@ -144,7 +144,7 @@
                             c.IsRented,
                             c.PricePerDay,
                             c.ImageUrl,
-                            FullName = c.Make + " " + c.Model + " (" + c.Year + ")",
+                            FullName = c.Make + " " + c.Model + " (" + c.Year + ")"
                         })
                         .FirstOrDefault();
 

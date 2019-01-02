@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CarRentalSystem.Models;
 using CarRentalSystem.Data;
+using CarRentalSystem.Models.Renting;
 
 namespace CarRentalSystem.Controllers
 {
@@ -403,6 +404,30 @@ namespace CarRentalSystem.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public ActionResult Rentings()
+        {
+            var db = new CarsDbContext();
+
+            var userId = this.User.Identity.GetUserId();
+
+            var rentings = db.Rentings
+                         .OrderByDescending(r => r.Id)
+                         .Where(r => r.UserId == userId)
+                         .Select(r => new UserRentingModel
+                         {
+                             Days = r.Days,
+                             RentedOn = r.RentedOn,
+                             TotalPrice = r.TotalPrice,
+                             CarName = r.Car.Make + " " + r.Car.Model + " (" + r.Car.Year + ")",
+                             CarImageUrl = r.Car.ImageUrl
+                         })
+                         .ToList();
+
+            return View(rentings);
+        }
+
 
         protected override void Dispose(bool disposing)
         {
