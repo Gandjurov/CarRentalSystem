@@ -6,5 +6,16 @@
     <img src="@Model.CarImageUrl" class="img-responsive" />
 </div>
 
-<p class="text-center mt-60">@Model.Days Days * @Model.PricePerDay BGN/Day = @Model.TotalPrice BGN</p> 
+<p class="text-center mt-60">@Model.Days Days * @Model.PricePerDay BGN/Day = @Model.TotalPrice BGN</p>
+
+@using (Html.BeginForm("Rent", "Cars", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.CarId)
+    @Html.HiddenFor(m => m.Days)
+
+    <div class="text-center mt-60">
+        <input class="btn btn-primary" type="submit" value="Rent!" />
+        <a href="/Cars/Details/@Model.CarId" class="btn btn-default">Cancel</a>
+    </div>
+}
 

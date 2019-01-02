@@ -4,6 +4,7 @@
     using CarRentalSystem.Models.Cars;
     using CarRentalSystem.Models.Renting;
     using Microsoft.AspNet.Identity;
+    using System;
     using System.Linq;
     using System.Net;
     using System.Web.Mvc;
@@ -151,6 +152,40 @@
 
 
             return View(rentCarModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Rent(int carId, int days)
+        {
+            var db = new CarsDbContext();
+
+            var car = db.Cars
+                        .Where(c => c.Id == carId)
+                        .FirstOrDefault();
+
+            var userId = this.User.Identity.GetUserId();
+
+            if (car == null || car.IsRented || car.OwnerId == userId)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var renting = new Renting
+            {
+                CarId = carId,
+                Days = days,
+                RentedOn = DateTime.Now, //if this application will be global, them must be DateTime.UtcNow
+                UserId = userId,
+                TotalPrice = days * car.PricePerDay
+            };
+
+            car.IsRented = true;
+
+            db.Rentings.Add(renting);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { id = car.Id});
         }
     }
 }
