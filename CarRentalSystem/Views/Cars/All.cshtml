@@ -7,6 +7,21 @@
     <h2 class="text-center">No more cars!</h2>
 }
 
+@using (Html.BeginForm("All", "Cars", FormMethod.Get))
+{
+    if (Request.QueryString["user"] != null)
+    {
+        @Html.Hidden("user", Request.QueryString["user"])
+    }
+
+    <div class="text-center mt-60">
+        <input type="text" class="form-control" name="Search" style="display: inline-block" value="@Request.QueryString["search"]" />
+        <input type="submit" value="Search" class="btn btn-default" />
+    </div>
+}
+
+
+
 @foreach (var car in Model)
 {
     <div class="row mt-60">
@@ -17,19 +32,24 @@
             <h2>@car.Make @car.Model (@car.Year)</h2>
             <h3>
                 @car.PricePerDay BGN/Day<h3>
-                <a href="/Cars/Details/@car.Id" class="btn @(car.IsRented ? "btn-default" : "btn-primary")">@(car.IsRented ? "This Car Is Not Available" : "See more")</a>
+                    <a href="/Cars/Details/@car.Id" class="btn @(car.IsRented ? "btn-default" : "btn-primary")">@(car.IsRented ? "This Car Is Not Available" : "See more")</a>
+        </div>
     </div>
-</div>
 }
 
-@{ 
-    var currentUserQuery = Request.QueryString["user"];
+@{
+    var currentUser = Request.QueryString["user"];
+    var currentSearch = Request.QueryString["search"];
+
+    var currentUserQuery = currentUser != null ? "&user=" + currentUser : string.Empty;
+    var currentSearchQuery = currentSearch != null ? "&search=" + currentSearch : string.Empty;
 }
 
 <p class="text-center mt-60">
-    <a href="/Cars/All?page=@(ViewBag.CurrentPage - 1)@(currentUserQuery != null ? "&user=" + currentUserQuery : string.Empty)" 
-                    class="btn btn-primary @(ViewBag.CurrentPage == 1  ? "disabled" : string.Empty)">Previous <<</a>
-    <a href="/Cars/All?page=@(ViewBag.CurrentPage + 1)@(currentUserQuery != null ? "&user=" + currentUserQuery : string.Empty)" 
-                    class="btn btn-primary @(!Model.Any() || Model.Count() < 5  ? "disabled" : string.Empty)">Next >></a>
+    <a href="/Cars/All?page=@(ViewBag.CurrentPage - 1)@currentUserQuery@currentSearchQuery"
+       class="btn btn-primary @(ViewBag.CurrentPage == 1  ? "disabled" : string.Empty)">Previous <<</a>
+
+    <a href="/Cars/All?page=@(ViewBag.CurrentPage + 1))@currentUserQuery@currentSearchQuery"
+       class="btn btn-primary @(!Model.Any() || Model.Count() < 5  ? "disabled" : string.Empty)">Next >></a>
 </p>
 

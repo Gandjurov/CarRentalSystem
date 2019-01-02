@@ -12,6 +12,7 @@
     <div class="col-md-4">
         <h2 class="car-details">@Model.Make  @Model.Model, @(Model.Color != null ? @Model.Color : string.Empty)</h2>
         <h3>@Model.Year - @Model.PricePerDay (BGN/Day)</h3>
+        <h4>@Model.TotalRents Total Rents</h4>
         <p class="lead">
             <a href="mailto:@Model.ContactInformation">@Model.ContactInformation</a>
             <br />
