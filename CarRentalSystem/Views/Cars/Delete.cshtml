@@ -1,0 +1,22 @@
+﻿@model CarRentalSystem.Models.Cars.CarViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3 class="text-center">Are you sure you want to Delete this car?</h3>
+
+@using (Html.BeginForm("Delete", "Cars", FormMethod.Post))
+{
+    @*<div class="form-group">
+            <div class="col-sm-4 col-sm-offset-4">
+                @Html.ActionLink("Cancel", "All", "Cars", null, new { @class = "btn btn-default" })
+                <input type="submit" value="Delete" class="btn btn-success" />
+            </div>
+        </div>*@
+
+    <div class="text-center mt-60">
+            <input class="btn btn-primary" type="submit" value="Delete" style="display: inline-block" />
+            @Html.ActionLink("Cancel", "All", "Cars", null, new { @class = "btn btn-default" })
+    </div>
+}

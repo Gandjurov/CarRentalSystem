@@ -33,9 +33,9 @@
         <p>
             @{
                 var options = new List<SelectListItem>
-                        {
-                        new SelectListItem { Text = "1", Value = "1", Selected = true },
-                        };
+                {
+                new SelectListItem { Text = "1", Value = "1", Selected = true },
+                };
 
                 for (int i = 2; i <= 10; i++)
                 {
@@ -56,6 +56,23 @@
                     <br />
                     <br />
                     <input type="submit" class="btn btn-primary @(Model.IsRented ? "disabled" : string.Empty)" value="Rent!" />
+                }
+            }
+
+            @if (Model.ContactInformation == User.Identity.Name)
+            {
+
+                using (Html.BeginForm("Edit", "Cars", FormMethod.Get))
+                {
+                    <a href="/Cars/Edit/@Model.Id" class="btn btn-default" style="background-color: goldenrod">Edit</a>
+                }
+            }
+            <br />
+            @if (Model.ContactInformation == User.Identity.Name)
+            {
+                using (Html.BeginForm("Delete", "Cars", FormMethod.Get))
+                {
+                    <a href="/Cars/Delete/@Model.Id" class="btn btn-default" style="background-color: #e60000">Delete</a>
                 }
             }
 

@@ -193,6 +193,7 @@
     <Compile Include="Data\CarDbContext.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Models\Cars\CarDetailsModel.cs" />
+    <Compile Include="Models\Cars\CarViewModel.cs" />
     <Compile Include="Models\Cars\CreateCarModel.cs" />
     <Compile Include="Models\Cars\CarListingModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -260,6 +261,8 @@
     <Content Include="Views\Cars\All.cshtml" />
     <Content Include="Views\Cars\Rent.cshtml" />
     <Content Include="Views\Account\Rentings.cshtml" />
+    <Content Include="Views\Cars\Edit.cshtml" />
+    <Content Include="Views\Cars\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -195,5 +195,147 @@
 
             return RedirectToAction("Details", new { id = car.Id});
         }
+
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            using (var db = new CarsDbContext())
+            {
+                var car = db.Cars
+                            .Where(c => c.Id == id)
+                            .FirstOrDefault();
+
+                var model = new CarViewModel();
+
+                model.Make = car.Make;
+                model.Model = car.Model;
+                model.Color = car.Color;
+                model.Engine = car.Engine;
+                model.EngineType = car.EngineType;
+                model.ImageUrl = car.ImageUrl;
+                model.Power = car.Power;
+                model.PricePerDay = car.PricePerDay;
+                model.Year = car.Year;
+                
+                
+                return View(model);
+            }
+            
+        }
+
+        [Authorize]
+        //[ActionName("Edit")]
+        [HttpPost]
+        public ActionResult Edit(CarViewModel carModel)
+        {
+            if (carModel != null && this.ModelState.IsValid)
+            {
+                var ownerId = this.User.Identity.GetUserId();
+
+                using (var db = new CarsDbContext())
+                {
+                    var car = db.Cars.Find(carModel.Id);
+
+                    car.Id = carModel.Id;
+                    car.Make = carModel.Make;
+                    car.Model = carModel.Model;
+                    car.Color = carModel.Color;
+                    car.Engine = carModel.Engine;
+                    car.EngineType = carModel.EngineType;
+                    car.ImageUrl = carModel.ImageUrl;
+                    car.Power = carModel.Power;
+                    car.PricePerDay = carModel.PricePerDay;
+                    car.Year = carModel.Year;
+                    car.OwnerId = ownerId;
+
+                    //carModel.CarId = carModel.Id;
+                    //carModel.CarName = carModel.Make + " " + carModel.Model + " (" + carModel.Year + ")";
+                    //carModel.CarImageUrl = carModel.ImageUrl;
+
+                    db.SaveChanges();
+                }
+                
+
+                return RedirectToAction("Details", new { id = carModel.Id });
+            }
+
+            return View(carModel);
+        }
+        
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            using (var db = new CarsDbContext())
+            {
+                var car = db.Cars
+                            .Where(c => c.Id == id)
+                            .FirstOrDefault();
+
+                if (car == null)
+                {
+                    return HttpNotFound();
+                }
+                
+
+                return View();
+            }
+
+        }
+
+        [Authorize]
+        [ActionName("Delete")]
+        [HttpPost]
+        public ActionResult ConfirmDeleted(int id)
+        {
+            using (var db = new CarsDbContext())
+            {
+                var car = db.Cars
+                            .Where(c => c.Id == id)
+                            .FirstOrDefault();
+
+                if (car == null)
+                {
+                    return HttpNotFound();
+                }
+
+                db.Cars.Remove(car);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("All");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Cancel(int id)
+        {
+            
+            var db = new CarsDbContext();
+
+            var car = db.Cars
+                        .Where(c => c.Id == id)
+                        .Select(c => new
+                        {
+                            c.Id
+                        })
+                        .FirstOrDefault();
+
+            if (car == null)
+            {
+                return HttpNotFound();
+            }
+
+
+            return RedirectToAction("Details", new { id = car.Id });
+        }
     }
 }
