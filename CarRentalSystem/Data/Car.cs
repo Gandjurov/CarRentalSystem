@@ -43,9 +43,14 @@ namespace CarRentalSystem.Data
 
         [Required]
         public string OwnerId { get; set; }
-
+        
         public virtual User Owner { get; set; }
 
         public virtual ICollection<Renting> Rentings { get; set; }
+
+        public bool IsOwner(string ownerId)
+        {
+            return this.OwnerId == ownerId;
+        }
     }
 }

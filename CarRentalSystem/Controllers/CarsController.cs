@@ -212,6 +212,11 @@
                             .Where(c => c.Id == id)
                             .FirstOrDefault();
 
+                if (car == null || !IsAuthorized(car))
+                {
+                    return HttpNotFound();
+                }
+
                 var model = new CarViewModel();
 
                 model.Make = car.Make;
@@ -243,6 +248,11 @@
                 {
                     var car = db.Cars.Find(carModel.Id);
 
+                    if (car == null || !IsAuthorized(car))
+                    {
+                        return HttpNotFound();
+                    }
+
                     car.Id = carModel.Id;
                     car.Make = carModel.Make;
                     car.Model = carModel.Model;
@@ -254,10 +264,6 @@
                     car.PricePerDay = carModel.PricePerDay;
                     car.Year = carModel.Year;
                     car.OwnerId = ownerId;
-
-                    //carModel.CarId = carModel.Id;
-                    //carModel.CarName = carModel.Make + " " + carModel.Model + " (" + carModel.Year + ")";
-                    //carModel.CarImageUrl = carModel.ImageUrl;
 
                     db.SaveChanges();
                 }
@@ -280,7 +286,7 @@
                             .Where(c => c.Id == id)
                             .FirstOrDefault();
 
-                if (car == null)
+                if (car == null || !IsAuthorized(car))
                 {
                     return HttpNotFound();
                 }
@@ -302,7 +308,7 @@
                             .Where(c => c.Id == id)
                             .FirstOrDefault();
 
-                if (car == null)
+                if (car == null || !IsAuthorized(car))
                 {
                     return HttpNotFound();
                 }
@@ -336,6 +342,14 @@
 
 
             return RedirectToAction("Details", new { id = car.Id });
+        }
+
+        private bool IsAuthorized(Car car)
+        {
+            var isAdmin = this.User.IsInRole("Admin");
+            var isOwner = car.IsOwner(this.User.Identity.GetUserId());
+
+            return isAdmin || isOwner;
         }
     }
 }

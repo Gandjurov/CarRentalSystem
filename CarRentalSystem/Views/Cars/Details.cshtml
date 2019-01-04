@@ -1,4 +1,5 @@
 ﻿@model CarRentalSystem.Models.Cars.CarDetailsModel
+@using Microsoft.AspNet.Identity
 
 @if (Model.IsRented)
 {
@@ -33,9 +34,9 @@
         <p>
             @{
                 var options = new List<SelectListItem>
-                {
-                new SelectListItem { Text = "1", Value = "1", Selected = true },
-                };
+                                    {
+                                    new SelectListItem { Text = "1", Value = "1", Selected = true },
+                                    };
 
                 for (int i = 2; i <= 10; i++)
                 {
@@ -59,16 +60,17 @@
                 }
             }
 
-            @if (Model.ContactInformation == User.Identity.Name)
+            @*User.Identity.IsAuthenticated && (User.IsInRole("Admin") || Model.IsOwner(User.Identity.GetUserId()))*@
+            @if (Model.ContactInformation == User.Identity.Name || User.IsInRole("Admin"))
             {
 
                 using (Html.BeginForm("Edit", "Cars", FormMethod.Get))
                 {
-                    <a href="/Cars/Edit/@Model.Id" class="btn btn-default" style="background-color: goldenrod">Edit</a>
+                    <a href="/Cars/Edit/@Model.Id" class="btn btn-default" style="background-color: goldenrod; margin-top: 20px">Edit</a>
                 }
             }
             <br />
-            @if (Model.ContactInformation == User.Identity.Name)
+            @if (Model.ContactInformation == User.Identity.Name || User.IsInRole("Admin"))
             {
                 using (Html.BeginForm("Delete", "Cars", FormMethod.Get))
                 {
