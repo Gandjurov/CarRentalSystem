@@ -11,4 +11,5 @@ namespace CarRentalSystem
             ConfigureAuth(app);
         }
     }
+
 }
